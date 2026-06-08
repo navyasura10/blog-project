@@ -1,0 +1,24 @@
+### Spring Boot ###
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ ###
+.idea/
+*.iml
+*.ipr
+*.iws
+
+### VS Code ###
+.vscode/
+
+### React / Vite ###
+node_modules/
+dist/
+
+### Logs ###
+*.log
+
+### Environment ###
+.env
+.env.local
