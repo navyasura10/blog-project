@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { 
-  Card, 
-  CardHeader, 
+import {
+  Card,
+  CardHeader,
   CardBody,
-  Tabs, 
+  Tabs,
   Tab,
 } from '@nextui-org/react';
 import { apiService, Post, Category, Tag } from '../services/apiService';
@@ -15,9 +15,7 @@ const HomePage: React.FC = () => {
   const [tags, setTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [page, setPage] = useState(1);
-  const [sortBy, setSortBy] = useState("createdAt,desc");
-  const [selectedCategory, setSelectedCategory] = useState<string|undefined>(undefined);
+  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(undefined);
   const [selectedTag, setSelectedTag] = useState<string | undefined>(undefined);
 
   useEffect(() => {
@@ -25,7 +23,7 @@ const HomePage: React.FC = () => {
       try {
         setLoading(true);
         const [postsResponse, categoriesResponse, tagsResponse] = await Promise.all([
-          apiService.getPosts({      
+          apiService.getPosts({
             categoryId: selectedCategory != undefined ? selectedCategory : undefined,
             tagId: selectedTag || undefined
           }),
@@ -45,10 +43,10 @@ const HomePage: React.FC = () => {
     };
 
     fetchData();
-  }, [page, sortBy, selectedCategory, selectedTag]);
+  }, [selectedCategory, selectedTag]);
 
-  const handleCategoryChange = (categoryId: string|undefined) => {
-    if("all" === categoryId){
+  const handleCategoryChange = (categoryId: string | undefined) => {
+    if ("all" === categoryId) {
       setSelectedCategory(undefined)
     } else {
       setSelectedCategory(categoryId);
@@ -62,9 +60,9 @@ const HomePage: React.FC = () => {
           <h1 className="text-2xl font-bold">Blog Posts</h1>
         </CardHeader>
         <CardBody>
-          <div className="flex flex-col gap-4">                     
-            <Tabs 
-              selectedKey={selectedCategory} 
+          <div className="flex flex-col gap-4">
+            <Tabs
+              selectedKey={selectedCategory}
               onSelectionChange={(key) => {
                 handleCategoryChange(key as string)
               }}
@@ -76,8 +74,8 @@ const HomePage: React.FC = () => {
             >
               <Tab key="all" title="All Posts" />
               {categories.map((category) => (
-                <Tab 
-                  key={category.id} 
+                <Tab
+                  key={category.id}
                   title={`${category.name} (${category.postCount})`}
                 />
               ))}
@@ -89,11 +87,10 @@ const HomePage: React.FC = () => {
                   <button
                     key={tag.id}
                     onClick={() => setSelectedTag(selectedTag == tag.id ? undefined : tag.id)}
-                    className={`px-3 py-1 rounded-full text-sm ${
-                      selectedTag === tag.id
+                    className={`px-3 py-1 rounded-full text-sm ${selectedTag === tag.id
                         ? 'bg-primary text-white'
                         : 'bg-default-100 hover:bg-default-200'
-                    }`}
+                      }`}
                   >
                     {tag.name} ({tag.postCount})
                   </button>
@@ -108,10 +105,6 @@ const HomePage: React.FC = () => {
         posts={posts}
         loading={loading}
         error={error}
-        page={page}
-        sortBy={sortBy}
-        onPageChange={setPage}
-        onSortChange={setSortBy}
       />
     </div>
   );
