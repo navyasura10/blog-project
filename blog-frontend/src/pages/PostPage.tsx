@@ -24,7 +24,6 @@ import { apiService, Post } from '../services/apiService';
 
 interface PostPageProps {
   isAuthenticated?: boolean;
-  currentUserId?: string;
 }
 
 const PostPage: React.FC<PostPageProps> = ({
