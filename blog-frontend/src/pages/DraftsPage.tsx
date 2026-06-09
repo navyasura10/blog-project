@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { 
-  Card, 
+import {
+  Card,
   CardHeader,
   CardBody,
   Button,
@@ -14,17 +14,14 @@ const DraftsPage: React.FC = () => {
   const [drafts, setDrafts] = useState<Post[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [page, setPage] = useState(1);
-  const [sortBy, setSortBy] = useState("updatedAt,desc");
+
 
   useEffect(() => {
     const fetchDrafts = async () => {
       try {
         setLoading(true);
         const response = await apiService.getDrafts({
-          page: page - 1,
           size: 10,
-          sort: sortBy,
         });
         setDrafts(response);
         setError(null);
@@ -36,7 +33,7 @@ const DraftsPage: React.FC = () => {
     };
 
     fetchDrafts();
-  }, [page, sortBy]);
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto px-4">
@@ -64,10 +61,6 @@ const DraftsPage: React.FC = () => {
             posts={drafts}
             loading={loading}
             error={error}
-            page={page}
-            sortBy={sortBy}
-            onPageChange={setPage}
-            onSortChange={setSortBy}
           />
 
           {drafts?.length === 0 && !loading && (
