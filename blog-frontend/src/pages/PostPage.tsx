@@ -11,7 +11,7 @@ import {
   Divider,
   Avatar,
 } from '@nextui-org/react';
-import { 
+import {
   Calendar,
   Clock,
   Tag,
@@ -27,9 +27,8 @@ interface PostPageProps {
   currentUserId?: string;
 }
 
-const PostPage: React.FC<PostPageProps> = ({ 
-  isAuthenticated,
-  currentUserId
+const PostPage: React.FC<PostPageProps> = ({
+  isAuthenticated
 }) => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -212,7 +211,7 @@ const PostPage: React.FC<PostPageProps> = ({
         <Divider />
 
         <CardBody>
-          <div 
+          <div
             className="prose max-w-none"
             dangerouslySetInnerHTML={createSanitizedHTML(post.content)}
           />

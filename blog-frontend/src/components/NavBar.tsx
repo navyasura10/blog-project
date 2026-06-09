@@ -15,7 +15,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from '@nextui-org/react';
-import { Plus, BookOpen, Edit3, LogOut, User, BookDashed } from 'lucide-react';
+import { Plus, Edit3, LogOut, BookDashed } from 'lucide-react';
 
 interface NavBarProps {
   isAuthenticated: boolean;
@@ -68,11 +68,10 @@ const NavBar: React.FC<NavBarProps> = ({
           >
             <Link
               to={item.path}
-              className={`text-sm ${
-                location.pathname === item.path
+              className={`text-sm ${location.pathname === item.path
                   ? 'text-primary'
                   : 'text-default-600'
-              }`}
+                }`}
             >
               {item.name}
             </Link>
@@ -116,7 +115,7 @@ const NavBar: React.FC<NavBarProps> = ({
                     name={userProfile?.name}
                   />
                 </DropdownTrigger>
-                <DropdownMenu aria-label="User menu">                
+                <DropdownMenu aria-label="User menu">
                   <DropdownItem
                     key="drafts"
                     startContent={<Edit3 size={16} />}
@@ -152,11 +151,10 @@ const NavBar: React.FC<NavBarProps> = ({
           <NavbarMenuItem key={item.path}>
             <Link
               to={item.path}
-              className={`w-full ${
-                location.pathname === item.path
+              className={`w-full ${location.pathname === item.path
                   ? 'text-primary'
                   : 'text-default-600'
-              }`}
+                }`}
               onClick={() => setIsMenuOpen(false)}
             >
               {item.name}
