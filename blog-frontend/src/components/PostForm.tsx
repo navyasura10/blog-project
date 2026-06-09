@@ -16,13 +16,14 @@ import {
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Heading from '@tiptap/extension-heading';
+import type { Level } from '@tiptap/extension-heading';
 import BulletList from '@tiptap/extension-bullet-list';
 import OrderedList from '@tiptap/extension-ordered-list';
 import ListItem from '@tiptap/extension-list-item';
-import { 
-  Bold, 
-  Italic, 
-  Undo, 
+import {
+  Bold,
+  Italic,
+  Undo,
   Redo,
   List,
   ListOrdered,
@@ -94,7 +95,7 @@ const PostForm: React.FC<PostFormProps> = ({
     if (initialPost && editor) {
       setTitle(initialPost.title);
       editor.commands.setContent(initialPost.content);
-      setCategoryId(initialPost.category?.id);
+      setCategoryId(initialPost.category?.id || ' ');
       setSelectedTags(initialPost.tags);
       setStatus(initialPost.status || PostStatus.DRAFT);
     }
@@ -143,7 +144,7 @@ const PostForm: React.FC<PostFormProps> = ({
     setSelectedTags(selectedTags.filter(tag => tag !== tagToRemove));
   };
 
-  const handleHeadingSelect = (level: number) => {
+  const handleHeadingSelect = (level: Level) => {
     editor?.chain().focus().toggleHeading({ level }).run();
   };
 
@@ -179,7 +180,7 @@ const PostForm: React.FC<PostFormProps> = ({
                   </Button>
                 </DropdownTrigger>
                 <DropdownMenu
-                  onAction={(key) => handleHeadingSelect(Number(key))}
+                  onAction={(key) => handleHeadingSelect(key as unknown as Level)}
                   aria-label="Heading levels"
                 >
                   <DropdownItem key="1" className={editor?.isActive('heading', { level: 1 }) ? 'bg-default-200' : ''}>
